@@ -4,6 +4,14 @@ import './App.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
+const noop = () => {}
+
+if (process.env.NODE_ENV !== 'development') {
+  console.log = noop
+  console.warn = noop
+  console.error = noop
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

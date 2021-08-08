@@ -8,6 +8,7 @@
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
+  max-width: 1536px;
 }
 
 body {

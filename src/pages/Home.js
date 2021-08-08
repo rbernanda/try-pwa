@@ -19,6 +19,7 @@ function Home() {
     accuracy: 0,
   })
   const [isPlaying, setIsPlaying] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
 
   useEffect(() => renderNewQuote(clonedData, setWords), [])
 
@@ -94,9 +95,9 @@ function Home() {
   }
 
   return (
-    <BaseContainer>
-      <Navbar />
-      <main className="flex h-full flex-col items-center justify-center mt-10 gap-4">
+    <BaseContainer darkMode={darkMode}>
+      <Navbar setDarkMode={setDarkMode} darkMode={darkMode} />
+      <main className="flex h-full flex-col items-center justify-center gap-4 dark:bg-gray-800 bg-gray-100">
         <Board
           charactersTyped={result.charactersTyped}
           errors={result.errors}

@@ -6,24 +6,26 @@ function TypingArea({
   timer,
 }) {
   return (
-    <div className="h-4/6 w-full bg-white flex justify-center">
-      <div className="flex justify-center w-5/12 gap-x-2">
+    <div className="h-4/6 w-full flex justify-center mt-4 sm:mt-0 dark:bg-gray-800 bg-gray-100">
+      <div className="flex flex-col sm:flex-row-reverse sm:justify-center w-10/12 sm:w-5/12 gap-4">
+        <div className="flex gap-x-2 justify-center">
+          <div className="flex rounded select-none justify-center items-center w-16 sm:h-1/6 bg-yellow-600 dark:bg-yellow-100">
+            {timer}
+          </div>
+          <button
+            onClick={handleReset}
+            className="sm:h-1/6 bg-blue-200 p-4 hover:scale-105 transition transform duration-100 ease-out"
+          >
+            reload
+          </button>
+        </div>
         <input
           value={input}
           onChange={handleOnChange}
           onKeyDown={handleOnKeyDown}
           type="text"
-          className="bg-red-100 p-4 outline-none h-1/6 flex-grow"
+          className="sm:text-2xl focus:outline-none focus:ring-2 focus:ring-yellow-600  bg-gray-200 dark:text-gray-200 p-4 rounded outline-none sm:h-1/6 sm:flex-grow dark:border-gray-700 border dark:bg-gray-800 dark:shadow-xl"
         />
-        <div className="flex select-none justify-center items-center w-16 h-1/6 bg-yellow-100">
-          {timer}
-        </div>
-        <button
-          onClick={handleReset}
-          className="h-1/6 bg-blue-200 p-4 hover:scale-105 transition transform duration-100 ease-out"
-        >
-          reload
-        </button>
       </div>
     </div>
   )

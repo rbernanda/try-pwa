@@ -160,5 +160,5 @@ const WORDS = [
 ]
 
 export default WORDS
-export const TOTAL_WORDS_TO_RENDER = 10
-export const TIME_LIMIT = 10
+export const TOTAL_WORDS_TO_RENDER = 5
+export const TIME_LIMIT = 60

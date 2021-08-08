@@ -1,16 +1,14 @@
-export const detectCountedInput = (key, keyCode) => {
-  //backspace or delete button charCode
-  if (key === 46 || key === 8) {
+import { TOTAL_WORDS_TO_RENDER } from '../configs'
+
+export const detectCountedInput = (keyCode, key) => {
+  //backspace or delete button keyCode
+  if (keyCode === 46 || keyCode === 8) {
     return false
   }
-  let isCountedInput = /[a-zA-Z0-9-_. ]/.test(String.fromCharCode(key))
-  const specialCharacters = {}
-  const dictionary = '`!@#$%^&*()_-+=[]{}|""/?.,><'
-  for (let char of dictionary) {
-    specialCharacters[char] = true
-  }
+  const isAlphaNumeric = /[a-zA-Z0-9-_. ]/.test(String.fromCharCode(keyCode))
+  const isSpecialCharacters = '`!@#$%^&*()_-+=[]{}|""/?.,><'
 
-  if (!specialCharacters[keyCode] && !isCountedInput) {
+  if (!isSpecialCharacters.includes(key) && !isAlphaNumeric) {
     return false
   }
 
@@ -27,10 +25,10 @@ export const renderNewQuote = (clonedData, setWords) => {
 
 const getRandomQuote = (clonedData) => {
   let output = ''
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < TOTAL_WORDS_TO_RENDER; i++) {
     const randomIdx = Math.floor(Math.random() * clonedData.length)
     let word = clonedData[randomIdx]
-    if (i !== 9) {
+    if (i !== TOTAL_WORDS_TO_RENDER - 1) {
       word += ' '
     }
     output += word

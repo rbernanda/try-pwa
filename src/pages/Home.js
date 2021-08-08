@@ -1,9 +1,7 @@
 //global
 import { useEffect, useState } from 'react'
 //local
-import Navbar from '../components/Navbar'
-import BaseContainer from '../components/BaseContainer'
-import SingleCharacterSpan from '../components/SingleCharacterSpan'
+import { Board, TypingArea, BaseContainer, Navbar } from '../components'
 import data, { TIME_LIMIT } from '../configs'
 import { detectCountedInput, renderNewQuote } from '../helpers'
 
@@ -82,12 +80,16 @@ function Home() {
   const handleReset = () => {
     clonedData = [...data]
     renderNewQuote(clonedData, setWords)
+    setIsPlaying(false)
     setTimer(TIME_LIMIT)
     setResult({
       charactersTyped: 0,
       accuracy: 0,
       errors: 0,
     })
+    if (countDownInterval !== null) {
+      clearInterval(countDownInterval)
+    }
     setInput('')
   }
 
@@ -95,45 +97,21 @@ function Home() {
     <BaseContainer>
       <Navbar />
       <main className="flex h-full flex-col items-center justify-center mt-10 gap-4">
-        <div className="flex justify-center items-center leading-normal w-9/12 text-center text-3xl h-2/6 bg-red-100 py-4 px-6 rounded shadow-sm">
-          <div>
-            {isPlaying || timer > 0 ? (
-              words.map((char, i) => (
-                <SingleCharacterSpan
-                  key={i}
-                  idx={i}
-                  input={input}
-                  char={char}
-                />
-              ))
-            ) : (
-              <div>
-                <div> charactersTyped : {result.charactersTyped}</div>
-                <div> errors : {result.errors}</div>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="h-4/6 w-full bg-white flex justify-center">
-          <div className="flex justify-center w-5/12 gap-x-2">
-            <input
-              value={input}
-              onChange={handleOnChange}
-              onKeyDown={handleOnKeyDown}
-              type="text"
-              className="bg-red-100 p-4 outline-none h-1/6 flex-grow"
-            />
-            <div className="flex justify-center items-center w-16 h-1/6 bg-yellow-100">
-              {timer}
-            </div>
-            <button
-              onClick={handleReset}
-              className="h-1/6 bg-blue-200 p-4 hover:scale-105 transition transform duration-100 ease-out"
-            >
-              reload
-            </button>
-          </div>
-        </div>
+        <Board
+          charactersTyped={result.charactersTyped}
+          errors={result.errors}
+          isPlaying={isPlaying}
+          timer={timer}
+          words={words}
+          input={input}
+        />
+        <TypingArea
+          input={input}
+          handleOnChange={handleOnChange}
+          handleOnKeyDown={handleOnKeyDown}
+          handleReset={handleReset}
+          timer={timer}
+        />
       </main>
     </BaseContainer>
   )

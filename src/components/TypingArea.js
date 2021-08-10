@@ -6,6 +6,8 @@ function TypingArea({
   handleOnKeyDown,
   handleReset,
   timer,
+  setSpyAnimation,
+  spyAnimation,
 }) {
   const ref = useRef(null)
 
@@ -13,6 +15,7 @@ function TypingArea({
     if (ref.current) {
       ref.current.focus()
     }
+    setSpyAnimation(spyAnimation > 0 ? spyAnimation - 1 : spyAnimation + 1)
     handleReset()
   }
 
@@ -20,6 +23,7 @@ function TypingArea({
     if (ref.current) {
       ref.current.focus()
     }
+    setSpyAnimation(spyAnimation > 0 ? spyAnimation - 1 : spyAnimation + 1)
   }, [])
   return (
     <div className="h-4/6 w-full flex justify-center mt-4 sm:mt-0 dark:bg-gray-800 bg-gray-100">

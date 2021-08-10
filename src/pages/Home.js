@@ -13,6 +13,7 @@ function Home() {
   const [nextQuote, setNextQuote] = useState(false)
   const [timer, setTimer] = useState(TIME_LIMIT)
   const [countDownInterval, setCountDownInterval] = useState(null)
+  const [spyAnimation, setSpyAnimation] = useState(0)
   const [result, setResult] = useState({
     charactersTyped: 0,
     errors: 0,
@@ -45,6 +46,7 @@ function Home() {
     if (timer <= 0 && countDownInterval !== null) {
       clearInterval(countDownInterval)
       setIsPlaying(false)
+      setInput('')
     }
   }, [timer])
 
@@ -97,6 +99,7 @@ function Home() {
     <BaseContainer>
       <main className="flex h-full flex-col items-center justify-center gap-4 dark:bg-gray-800 bg-gray-100">
         <Board
+          spyAnimation={spyAnimation}
           result={result}
           isPlaying={isPlaying}
           timer={timer}
@@ -109,6 +112,8 @@ function Home() {
           handleOnKeyDown={handleOnKeyDown}
           handleReset={handleReset}
           timer={timer}
+          setSpyAnimation={setSpyAnimation}
+          spyAnimation={spyAnimation}
         />
       </main>
     </BaseContainer>

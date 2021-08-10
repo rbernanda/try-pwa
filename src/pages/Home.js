@@ -1,9 +1,9 @@
 //global
 import { useEffect, useState } from 'react'
 //local
-import { Board, TypingArea, BaseContainer, Navbar } from '../components'
+import { Board, TypingArea, BaseContainer } from '../components'
 import data, { TIME_LIMIT } from '../configs'
-import { detectCountedInput, renderNewQuote } from '../helpers'
+import { detectIsCountedInput, renderNewQuote } from '../helpers'
 
 let clonedData = [...data]
 
@@ -19,7 +19,6 @@ function Home() {
     accuracy: 0,
   })
   const [isPlaying, setIsPlaying] = useState(false)
-  const [darkMode, setDarkMode] = useState(true)
 
   useEffect(() => renderNewQuote(clonedData, setWords), [])
 
@@ -64,7 +63,7 @@ function Home() {
 
   const handleOnKeyDown = (e) => {
     const key = e.keyCode || e.charCode
-    if (!detectCountedInput(key, e.key) || timer <= 0) {
+    if (!detectIsCountedInput(key, e.key) || timer <= 0) {
       return
     }
 
@@ -95,12 +94,10 @@ function Home() {
   }
 
   return (
-    <BaseContainer darkMode={darkMode}>
-      <Navbar setDarkMode={setDarkMode} darkMode={darkMode} />
+    <BaseContainer>
       <main className="flex h-full flex-col items-center justify-center gap-4 dark:bg-gray-800 bg-gray-100">
         <Board
-          charactersTyped={result.charactersTyped}
-          errors={result.errors}
+          result={result}
           isPlaying={isPlaying}
           timer={timer}
           words={words}

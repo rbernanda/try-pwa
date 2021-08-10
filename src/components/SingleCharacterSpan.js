@@ -11,6 +11,9 @@ const SingleCharacterSpan = ({ idx, char, input }) => {
             ? COLOR.INCORRECT
             : COLOR.CORRECT
         }`,
+        textDecoration: `${
+          char !== input[idx] && input[idx] !== undefined ? 'underline' : ''
+        }`,
       }}
     >
       {char}

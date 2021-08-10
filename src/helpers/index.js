@@ -1,6 +1,6 @@
 import { TOTAL_WORDS_TO_RENDER } from '../configs'
 
-export const detectCountedInput = (keyCode, key) => {
+export const detectIsCountedInput = (keyCode, key) => {
   //backspace or delete button keyCode
   if (keyCode === 46 || keyCode === 8) {
     return false

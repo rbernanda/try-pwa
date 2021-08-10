@@ -1,5 +1,5 @@
 export const TOTAL_WORDS_TO_RENDER = 5
-export const TIME_LIMIT = 5
+export const TIME_LIMIT = 60
 const WORDS = [
   'for',
   'for in',

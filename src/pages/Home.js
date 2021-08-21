@@ -1,9 +1,11 @@
 //global
 import { useEffect, useState } from 'react'
+import useSound from 'use-sound'
 //local
 import { Board, TypingArea, BaseContainer } from '../components'
 import data, { TIME_LIMIT } from '../configs'
 import { detectIsCountedInput, renderNewQuote } from '../helpers'
+import switchOn from '../configs/sounds/switch-on.mp3'
 
 let clonedData = [...data]
 
@@ -20,6 +22,7 @@ function Home() {
     accuracy: 0,
   })
   const [isPlaying, setIsPlaying] = useState(false)
+  const [play] = useSound(switchOn)
 
   useEffect(() => renderNewQuote(clonedData, setWords), [])
 
@@ -68,6 +71,8 @@ function Home() {
     if (!detectIsCountedInput(key, e.key) || timer <= 0) {
       return
     }
+
+    play()
 
     const currentIdx = input.length
     const errors =

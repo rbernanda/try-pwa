@@ -2,14 +2,15 @@
 import { useEffect, useState } from 'react'
 import useSound from 'use-sound'
 //local
+import { Head } from 'components/Head'
 import { Board, TypingArea, BaseContainer } from '../components'
 import data, { TIME_LIMIT } from '../configs'
-import { detectIsCountedInput, renderNewQuote } from '../helpers'
+import { detectIsCountedInput, renderNewQuote } from '../utils'
 import switchOn from '../configs/sounds/switch-on.mp3'
 
 let clonedData = [...data]
 
-function Home() {
+function JSWordsMastery() {
   const [words, setWords] = useState([])
   const [input, setInput] = useState('')
   const [nextQuote, setNextQuote] = useState(false)
@@ -101,28 +102,33 @@ function Home() {
   }
 
   return (
-    <BaseContainer>
-      <main className="flex h-full flex-col items-center justify-center gap-4 dark:bg-gray-800 bg-gray-100">
-        <Board
-          spyAnimation={spyAnimation}
-          result={result}
-          isPlaying={isPlaying}
-          timer={timer}
-          words={words}
-          input={input}
-        />
-        <TypingArea
-          input={input}
-          handleOnChange={handleOnChange}
-          handleOnKeyDown={handleOnKeyDown}
-          handleReset={handleReset}
-          timer={timer}
-          setSpyAnimation={setSpyAnimation}
-          spyAnimation={spyAnimation}
-        />
-      </main>
-    </BaseContainer>
+    <>
+      <Head>
+        <title>JS Words Mastery</title>
+      </Head>
+      <BaseContainer>
+        <main className="flex h-full flex-col items-center justify-center gap-4 dark:bg-gray-800 bg-gray-100">
+          <Board
+            spyAnimation={spyAnimation}
+            result={result}
+            isPlaying={isPlaying}
+            timer={timer}
+            words={words}
+            input={input}
+          />
+          <TypingArea
+            input={input}
+            handleOnChange={handleOnChange}
+            handleOnKeyDown={handleOnKeyDown}
+            handleReset={handleReset}
+            timer={timer}
+            setSpyAnimation={setSpyAnimation}
+            spyAnimation={spyAnimation}
+          />
+        </main>
+      </BaseContainer>
+    </>
   )
 }
 
-export default Home
+export default JSWordsMastery

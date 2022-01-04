@@ -1,19 +1,23 @@
-import ToggleTheme from './ToggleTheme'
+import React from 'react'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 
-function Navbar({ setDarkMode, darkMode }) {
+export function Navbar() {
+  const navigate = useNavigate()
+  const goBack = () => navigate(-1)
+  const location = useLocation()
+
   return (
-    <nav className="w-full flex justify-center items-center p-2 relative dark:bg-gray-800 bg-gray-100">
-      <header className="text-center sm:space-y-2 space-y-1">
-        <h1 className="text-2xl sm:text-4xl text-yellow-600">
-          JS wordsMastery()
+    <header className="bg-gray-800 text-white px-8 py-4 w-full shadow-md sticky top-0">
+      <div className="flex gap-x-6 text-2xl">
+        {location.pathname !== '/' && (
+          <button role="button" className="cursor-pointer" onClick={goBack}>
+            {'<--'}
+          </button>
+        )}
+        <h1>
+          <Link to="/">Mini Games</Link>
         </h1>
-        <h3 className="text-base sm:text-xl dark:text-blue-200 ">
-          Build Your Muscle Memory
-        </h3>
-      </header>
-      <ToggleTheme setDarkMode={setDarkMode} darkMode={darkMode} />
-    </nav>
+      </div>
+    </header>
   )
 }
-
-export default Navbar

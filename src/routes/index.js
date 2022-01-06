@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import { Route } from 'react-router-dom'
+import TopBarProgress from 'react-topbar-progress-indicator'
 
 import { CustomRoutes } from 'components/CustomRoutes'
 
@@ -16,7 +17,7 @@ export const AppRoutes = () => {
   useScrollToTop()
 
   return (
-    <Suspense fallback={<div>loading...</div>}>
+    <Suspense fallback={<TopBarProgress />}>
       <CustomRoutes>
         <Route path="/" element={<Home />} />
         <Route path={PATHNAMES.JS_WORDS_MASTERY} element={<JSwordsMastery />} />

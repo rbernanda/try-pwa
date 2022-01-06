@@ -282,7 +282,7 @@ export default function SnakeGame() {
   return (
     <>
       <Head>
-        <title>Snake Game</title>
+        <title>Retro Snake</title>
       </Head>
       <Modal
         title="Game Over"

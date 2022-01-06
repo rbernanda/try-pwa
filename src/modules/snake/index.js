@@ -3,30 +3,34 @@ import React, { createRef, useEffect, useRef, useState } from 'react'
 
 import { Head } from 'components/Head'
 import { Modal } from 'components/Modal'
-import { PIXEL, ROWS, COLUMNS } from './constant'
+import { PIXEL, ROWS, COLUMNS, GAME_SPEED } from './constant'
 import {
+  areOpposite,
   makeInitialSnake,
   moveDown,
   moveLeft,
   moveRight,
   moveUp,
   toKey,
-  areOpposite,
 } from './utils'
 
+import { useInterval } from 'utils/useInterval'
+
 export default function SnakeGame() {
+  const [delay, setDelay] = useState(GAME_SPEED)
   const [initialCanvas, setInitialCanvas] = useState([])
+  const [pauseGame, setPauseGame] = useState(false)
+  const [shouldClearInterval, setShouldClearinterval] = useState(false)
   const [showStopGameModal, setShowStopGameModal] = useState(false)
 
   const canvas = useRef()
-  const pixelRefs = useRef(new Map())
+  const currentDirection = useRef()
+  const currentFoodKey = useRef()
   const currentSnake = useRef()
   const currentSnakeKeys = useRef()
   const currentVacantKeys = useRef()
-  const currentFoodKey = useRef()
-  const currentDirection = useRef()
   const directionQueue = useRef()
-  const gameInterval = useRef()
+  const pixelRefs = useRef(new Map())
 
   const isMounted = useRef()
 
@@ -76,6 +80,13 @@ export default function SnakeGame() {
         return
       }
       currentFoodKey.current = nextFoodKey
+      setDelay((prevDelay) => {
+        if (prevDelay > 50) {
+          return prevDelay - 10
+        }
+
+        return prevDelay
+      })
     } else {
       popTail()
     }
@@ -106,7 +117,7 @@ export default function SnakeGame() {
     if (canvas.current) {
       canvas.current.style.borderColor = ''
     }
-    gameInterval.current = setInterval(step, 100)
+    setShouldClearinterval(false)
     drawCanvas()
   }
 
@@ -173,9 +184,12 @@ export default function SnakeGame() {
     if (canvas.current) {
       canvas.current.style.borderColor = success ? 'green' : 'red'
     }
-    clearInterval(gameInterval.current)
+    setShouldClearinterval(true)
+    setDelay(GAME_SPEED)
     setShowStopGameModal(true)
   }
+
+  useInterval(step, pauseGame ? null : delay, shouldClearInterval)
 
   useEffect(() => {
     const components = []
@@ -217,6 +231,13 @@ export default function SnakeGame() {
       ) {
         return
       }
+
+      // spacebar
+      if (e.keyCode === 32 || e.key === ' ') {
+        setPauseGame((prev) => !prev)
+        return
+      }
+
       e.preventDefault()
       switch (e.key) {
         case 'ArrowLeft':
@@ -286,10 +307,19 @@ export default function SnakeGame() {
           </button>
         </div>
       </Modal>
+
+      <div className="container mx-auto flex justify-center space-x-4 my-4 text-lg">
+        <p>
+          Press <i className="text-purple-800 font-bold">r</i> to restart and{' '}
+          <i className="text-purple-800 font-bold">spacebar</i> to pause or
+          resume the game
+        </p>
+      </div>
+
       <div
         ref={canvas}
         style={{ width: '1000px', height: '500px', boxSizing: 'content-box' }}
-        className="container mx-auto mt-8 border-4 border-solid border-black rounded relative"
+        className="container mx-auto border-4 border-solid border-black rounded relative"
       >
         {initialCanvas.map(({ top, left, background, key }, index) => (
           <div

@@ -1,5 +1,7 @@
 import React, { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+
+import { CustomRoutes } from 'components/CustomRoutes'
 
 import { useScrollToTop } from 'utils/useScrollToTop'
 import * as PATHNAMES from 'configs/pathnames'
@@ -15,11 +17,11 @@ export const AppRoutes = () => {
 
   return (
     <Suspense fallback={<div>loading...</div>}>
-      <Routes>
+      <CustomRoutes>
         <Route path="/" element={<Home />} />
         <Route path={PATHNAMES.JS_WORDS_MASTERY} element={<JSwordsMastery />} />
         <Route path={PATHNAMES.SNAKE} element={<SnakeGame />} />
-      </Routes>
+      </CustomRoutes>
     </Suspense>
   )
 }

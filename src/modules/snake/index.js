@@ -288,13 +288,13 @@ export default function SnakeGame() {
         title="Game Over"
         description="press r to play again"
         isOpen={showStopGameModal}
-        setIsOpen={setShowStopGameModal}
+        onClose={() => setShowStopGameModal(false)}
       >
         <div className="mt-4">
           <p className="text-lg text-gray-500">Play Again?</p>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 gap-x-4 flex">
           <button
             className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
             onClick={() => {

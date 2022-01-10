@@ -21,7 +21,7 @@ export const GAMES = [
     image:
       'https://images.crazygames.com/games/tic-tac-toe/thumb-1579168809142.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=1200&h=630&fit=crop',
     link: PATHNAMES.TIC_TAC_TOE,
-    tags: ['tic-tac-toe', 'soon'],
+    tags: ['tic-tac-toe'],
     title: 'Tic Tac Toe',
   },
 ]

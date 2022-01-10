@@ -1,18 +1,14 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-export function Modal({ isOpen, setIsOpen, title, children }) {
-  function closeModal() {
-    setIsOpen(false)
-  }
-
+export function Modal({ isOpen, onClose, title, children }) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
           className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModal}
+          onClose={onClose}
         >
           <div className="min-h-screen px-4 text-center">
             <Transition.Child
@@ -24,7 +20,10 @@ export function Modal({ isOpen, setIsOpen, title, children }) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0" />
+              <Dialog.Overlay
+                className="fixed inset-0"
+                style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
+              />
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}

@@ -1,4 +1,3 @@
-import React from 'react'
 import { TOTAL_WORDS_TO_RENDER } from '../configs'
 
 export const detectIsCountedInput = (keyCode, key) => {

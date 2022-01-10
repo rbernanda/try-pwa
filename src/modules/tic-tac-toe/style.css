@@ -1,0 +1,45 @@
+:root {
+  --cell-size: calc(450px / 3);
+  --mark-size: calc(var(--cell-size) * 0.9);
+}
+
+.X::before,
+.X::after,
+.O::before {
+  background-color: black;
+}
+
+.X::after,
+.X::before {
+  content: '';
+  position: absolute;
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+}
+
+.X::before {
+  transform: rotate(45deg);
+}
+
+.X::after {
+  transform: rotate(-45deg);
+}
+
+.O::before,
+.O::after,
+.O:hover::before,
+.O:hover::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+.O::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+}
+
+.O::after {
+  width: calc(var(--mark-size) * 0.7);
+  height: calc(var(--mark-size) * 0.7);
+  background-color: white;
+}

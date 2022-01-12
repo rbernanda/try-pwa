@@ -5,14 +5,15 @@ import TopBarProgress from 'react-topbar-progress-indicator'
 import { CustomRoutes } from 'components/CustomRoutes'
 
 import { useScrollToTop } from 'utils/useScrollToTop'
-import * as PATHNAMES from 'configs/pathnames'
 
-const Home = lazy(() => import('modules/home'))
-const JSwordsMastery = lazy(() =>
-  import('modules/js-words-mastery/pages/index')
-)
-const SnakeGame = lazy(() => import('modules/snake'))
-const TicTacToe = lazy(() => import('modules/tic-tac-toe'))
+const Home = lazy(() => import(/* webpackChunkName: 'Home' */ 'modules/home'))
+
+const files = require.context('.', true, /^(?!.*index).*\/(?!.*test).*\.js$/)
+
+const Components = files.keys().map((filePath) => {
+  const path = filePath.substring(1, filePath.length - 3)
+  return { path, Component: files(filePath).default }
+})
 
 export const AppRoutes = () => {
   useScrollToTop()
@@ -21,9 +22,9 @@ export const AppRoutes = () => {
     <Suspense fallback={<TopBarProgress />}>
       <CustomRoutes>
         <Route path="/" element={<Home />} />
-        <Route path={PATHNAMES.JS_WORDS_MASTERY} element={<JSwordsMastery />} />
-        <Route path={PATHNAMES.SNAKE} element={<SnakeGame />} />
-        <Route path={PATHNAMES.TIC_TAC_TOE} element={<TicTacToe />} />
+        {Components.map(({ Component, path } = {}) => (
+          <Route path={path} element={<Component />} />
+        ))}
       </CustomRoutes>
     </Suspense>
   )

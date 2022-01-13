@@ -20,6 +20,13 @@ export const checkWinner = (board) => {
     [false, false, false],
   ]
 
+  const setHighlightBoard = (coords) => {
+    coords.forEach((indices) => {
+      const [x, y] = indices
+      highlightBoard[x][y] = true
+    })
+  }
+
   let openSpots = 0
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
@@ -31,31 +38,39 @@ export const checkWinner = (board) => {
 
   if (areEqual(board[0][0], board[1][1], board[2][2])) {
     winner = board[0][0]
-    highlightBoard[0][0] = true
-    highlightBoard[1][1] = true
-    highlightBoard[2][2] = true
+    setHighlightBoard([
+      [0, 0],
+      [1, 1],
+      [2, 2],
+    ])
   }
   if (areEqual(board[2][0], board[1][1], board[0][2])) {
     winner = board[2][0]
-    highlightBoard[2][0] = true
-    highlightBoard[1][1] = true
-    highlightBoard[0][2] = true
+    setHighlightBoard([
+      [2, 0],
+      [1, 1],
+      [0, 2],
+    ])
   }
 
   for (let i = 0; i < 3; i++) {
     // horizontal
     if (areEqual(board[i][0], board[i][1], board[i][2])) {
       winner = board[i][0]
-      highlightBoard[i][0] = true
-      highlightBoard[i][1] = true
-      highlightBoard[i][2] = true
+      setHighlightBoard([
+        [i, 0],
+        [i, 1],
+        [i, 2],
+      ])
     }
     // vertical
     if (areEqual(board[0][i], board[1][i], board[2][i])) {
       winner = board[0][i]
-      highlightBoard[0][i] = true
-      highlightBoard[1][i] = true
-      highlightBoard[2][i] = true
+      setHighlightBoard([
+        [0, i],
+        [1, i],
+        [2, i],
+      ])
     }
   }
 

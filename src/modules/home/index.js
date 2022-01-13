@@ -28,11 +28,10 @@ export default function Home() {
   return (
     <ul className="grid grid-cols-3 gap-12 p-8">
       {GAMES.map(({ tags, description, title, link, image }, index) => (
-        <li>
+        <li key={index}>
           <Card
             description={description}
             image={image}
-            key={index}
             link={link}
             tags={tags}
             title={title}
